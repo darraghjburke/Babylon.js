@@ -7,6 +7,7 @@
     --buttonDisabledBackground: #c8c8c8;
     --buttonPressed: #ffffff;
     --buttonPressedBackground: #606060;
+    --buttonHoverBackground: #afafaf;
 }
 
 hr.ge {
@@ -124,10 +125,15 @@ hr.ge {
         border: none;
         margin-top: 2px;
         cursor: pointer;
+        margin-left: 2px;
     }
 
     .unit.disabled {
         background-color: var(--buttonDisabledBackground);
+    }
+
+    .unit:hover {
+        background-color: var(--buttonHoverBackground);
     }
 
     .unit:active {
@@ -135,15 +141,40 @@ hr.ge {
         background-color: var(--buttonPressedBackground);
     }
 
+    input, select {
+        outline-style: solid;
+        outline-width: 0px;
+        outline-color: transparent;
+        outline-offset: -1px;
+        outline-width: 1px;
+        transition: outline-color 0.2s;
+        border: transparent;
+        padding-left: 5px;
+        &:focus {
+            outline-width: 1px;
+            outline-color: black;
+        }
+    }
+
+    .hasArrows input::-webkit-outer-spin-button,
+    .hasArrows input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .hasArrows input[type=number] {
+        -moz-appearance: textfield;
+    }
+
     .sliderLine {
         height: var(--spacingHeight);;
         display: grid;
         grid-template-rows: 100%;
-        grid-template-columns: auto auto auto 1fr;
+        grid-template-columns: auto 1fr 5px 15px 1fr;
         flex-grow: 1;
 
         .label {
-            grid-column: 2;
+            grid-column: 1;
             display: flex;
             align-items: center;
             min-width: 15px;
@@ -158,7 +189,7 @@ hr.ge {
         }
 
         .slider {
-            grid-column: 4;
+            grid-column: 5;
             grid-row: 1;
             margin-right: 5px;
             display: flex;
@@ -167,8 +198,9 @@ hr.ge {
         }
 
         .floatLine {
-            grid-column: 3;
+            grid-column: 2;
             padding-left: 0px;
+            grid-template-columns: auto;
             
             .label {
                 grid-column: 1;
@@ -184,12 +216,9 @@ hr.ge {
                 align-items: center;
                 
                 input {
-                    width: 60px;
+                    width: 100%;
                     background-color: white;
-                    outline-color: transparent;
-                    border: transparent;
                     height: 26px;
-                    outline-width: 0px
                 }
                 
                 input::-webkit-outer-spin-button,
@@ -207,12 +236,28 @@ hr.ge {
         }  
     }     
 
-    .ge-divider, .ge-divider-short, .ge-divider-single {
-        display: flex;
-        flex-direction: row;
+    .ge-divider {
         padding-right: $line-padding-right;
-        align-items: center;
         padding-left: 5px;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+    .ge-divider.double {
+        display: grid;
+        grid-template-columns: auto 1fr 5px 1fr;
+        > .textInputLine, > .floatLine {
+            &:first-of-type {
+                grid-column: 2;
+            }
+            &:nth-of-type(2) {
+                grid-column: 4;
+            }
+        }
+        > .sliderLine {
+
+        }
     }
     .ge-grid-divider {
         display: grid;
@@ -250,11 +295,10 @@ hr.ge {
     }
 
 
-    .textInputLine {
+    .textInputLine, .floatLine {
         user-select: none;
         padding-bottom: $line-padding-bottom;
         padding-top: $line-padding-top;
-        padding-right: 5px;
         height: var(--spacingHeight);
         display: grid;
         grid-template-columns: auto auto 1fr;
@@ -288,12 +332,8 @@ hr.ge {
             background-color: white;
             margin-top: 2px;
             overflow-y: hidden;
-            margin-right: 2px;
             input {
                 width: 100%;
-                outline-color: transparent;
-                border: transparent;
-                outline-width: 0px;
                 height: 24px;
             }
             input.hasArrows {
@@ -301,18 +341,20 @@ hr.ge {
             }
             .arrows {
                 display: none;
-            }
-            &:hover .arrows, &:focus .arrows, &.dragging .arrows {
                 position: absolute;
                 right: 0;
-                display: flex;
                 flex-direction: column;
-                background-color: white;
                 cursor: grab;
                 .downArrowIcon, .upArrowIcon {
-                    width: 15px;
-                    height: 15px;
+                    width: 13px;
+                    height: 13px;
                 }
+            }
+            &:hover .arrows, &:focus .arrows, &.dragging .arrows {
+                display: flex;
+            }
+            .arrows:hover {
+                background-color: var(--buttonHoverBackground);
             }
             &.dragging .arrows {
                 background-color: var(--buttonPressedBackground);
@@ -328,7 +370,6 @@ hr.ge {
     }
     
     .textInputArea {
-        padding-left: $line-padding-left;
         height: 100%;
         display: grid;
         grid-template-columns: 1fr 120px;
@@ -460,7 +501,12 @@ hr.ge {
 
         .color-picker-float {
             position: absolute;
-        }                
+            outline: 1px solid black;
+        }
+
+        .color-picker-container {
+            background-color: #e2e2e2;
+        }
     }
 
     .gradient-step {
@@ -680,13 +726,9 @@ hr.ge {
             grid-column: 3;
             background: transparent;
             height: 30px;
-            margin-right: 2px;
             input {
                 width: 100%;
                 background-color: white;
-                outline-color: transparent;
-                border: none;
-                outline-width: 0px;
                 height: 24px;
             }
         }
@@ -698,7 +740,7 @@ hr.ge {
             align-items: center;
             
             input {
-                width: 27px;
+                width: 100%;
             }
             
             input::-webkit-outer-spin-button,
@@ -997,7 +1039,7 @@ hr.ge {
             margin-right: 5px;
 
             select {
-                width: 120px;
+                width: 100%;
                 height: 25px;
                 border: transparent;
                 border-radius: 4px;

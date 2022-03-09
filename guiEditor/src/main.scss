@@ -31,9 +31,12 @@
 }
 
 #leftGrab {
-    grid-row: 1 / span 2;
-    grid-column: 2;
+    width: 5px;
+    height: 100%;
     cursor: ew-resize;
+    position: absolute;
+    right: -1px;
+    top: 0;
 }
 
 #rightGrab {
@@ -49,7 +52,7 @@
 #toolbarGrab {
     background: #333333;
     grid-row: 1 / span 3;
-    grid-column: 3;
+    grid-column: 2;
     height: 100%;
 
     .blackLine {
@@ -89,7 +92,7 @@
     position: relative;
     display: grid;
     grid-row: 1;
-    grid-column: 4;
+    grid-column: 2;
     background: #CCCCCC;
     width: 100%;
     height: 100%;
@@ -102,9 +105,18 @@
     }
 }
 
+.left-panel {
+    grid-row: 1 / span 2;
+    grid-column: 1;
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 1fr 40px;
+    position: relative;
+}
+
 .right-panel {
     grid-row: 1 / span 2;
-    grid-column: 5;
+    grid-column: 3;
     display: grid;
     grid-template-rows: 1fr 40px auto 40px;
     grid-template-columns: 100%;
@@ -182,6 +194,7 @@
     top:0;
 
     .dialog {
+        z-index: 3;
         align-self: center;
         justify-self: center;
         min-height: 140px;
@@ -281,7 +294,7 @@
 .artboard-stroke {
     outline: 1px solid black;
     position: absolute;
-    z-index: 5;
+    z-index: 2;
     pointer-events: none;
 }
 .artboard-background {

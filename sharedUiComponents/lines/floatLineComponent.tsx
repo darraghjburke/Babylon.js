@@ -6,6 +6,7 @@ import { LockObject } from "../tabs/propertyGrids/lockObject";
 import { SliderLineComponent } from "./sliderLineComponent";
 import { Tools } from "babylonjs/Misc/tools";
 import { conflictingValuesPlaceholder } from "./targetsProxy";
+import { InputArrowsComponent } from "./inputArrowsComponent";
 
 interface IFloatLineComponentProps {
     label: string;
@@ -29,9 +30,10 @@ interface IFloatLineComponentProps {
     unit?: string;
     onUnitClicked?: () => void;
     unitLocked?: boolean;
+    arrows?: boolean;
 }
 
-export class FloatLineComponent extends React.Component<IFloatLineComponentProps, { value: string }> {
+export class FloatLineComponent extends React.Component<IFloatLineComponentProps, { value: string, dragging: boolean }> {
     private _localChange = false;
     private _store: number;
 
@@ -39,7 +41,7 @@ export class FloatLineComponent extends React.Component<IFloatLineComponentProps
         super(props);
 
         let currentValue = this.props.target[this.props.propertyName];
-        this.state = { value: this.getValueString(currentValue) };
+        this.state = { value: this.getValueString(currentValue), dragging: false };
         this._store = currentValue;
     }
 
@@ -147,6 +149,10 @@ export class FloatLineComponent extends React.Component<IFloatLineComponentProps
             this.props.lockObject.lock = false;
         }
     }
+    
+    incrementValue(amount: number) {
+        this.updateValue(`${this.state.value + amount}}`);
+    }
 
     render() {
         let valueAsNumber: number;
@@ -158,6 +164,7 @@ export class FloatLineComponent extends React.Component<IFloatLineComponentProps
         }
 
         let className = this.props.smallUI ? "short" : "value";
+        if (this.state.dragging) className += "dragging";
 
         const value = this.state.value === conflictingValuesPlaceholder ? "" : this.state.value;
         const placeholder = this.state.value === conflictingValuesPlaceholder ? conflictingValuesPlaceholder : "";
@@ -195,6 +202,13 @@ export class FloatLineComponent extends React.Component<IFloatLineComponentProps
                                 onFocus={() => this.lock()}
                                 onChange={(evt) => this.updateValue(evt.target.value)}
                             />
+                            {
+                                this.props.arrows &&
+                                <InputArrowsComponent
+                                    incrementValue={amount => this.incrementValue(amount)}
+                                    setDragging={dragging => this.setState({dragging})}
+                                />
+                            }
                         </div>
                         {this.props.unit && <button
                             className={this.props.unitLocked ? "unit disabled" : "unit"}

@@ -140,12 +140,12 @@ export class ColorPicker extends React.Component<IColorPickerProps, IColorPicker
     }
 
     public render() {
-        let colorHex = this.state.color.toHexString();
+        let hasAlpha = this.props.color instanceof Color4;
+        let colorHex = hasAlpha ? Color4.FromColor3(this.state.color, this.state.alpha).toHexString() : this.state.color.toHexString();
         let hsv = this.state.color.toHSV();
         let colorRef = new Color3();
         Color3.HSVtoRGBToRef(hsv.r, 1, 1, colorRef);
         let colorHexRef = colorRef.toHexString();
-        let hasAlpha = this.props.color instanceof Color4;
 
         return (
             <div className={"color-picker-container" + (this.props.linearhint ? " with-hints" : "")}>
@@ -242,6 +242,7 @@ export class ColorPicker extends React.Component<IColorPickerProps, IColorPicker
                                 this.setState({ alpha: value / 255.0 });
                                 this.forceUpdate();
                             }}
+                            disabled={!hasAlpha}
                         />
                     </div>
                 </div>
@@ -249,10 +250,15 @@ export class ColorPicker extends React.Component<IColorPickerProps, IColorPicker
                     <div className="color-picker-hex-label">Hex</div>
                     <div className="color-picker-hex-value">
                         <HexColor
-                            expectedLength={6}
+                            expectedLength={hasAlpha ? 8 : 6}
                             value={colorHex}
                             onChange={(value) => {
-                                this.setState({ color: Color3.FromHexString(value) });
+                                if (hasAlpha) {
+                                    const color4 = Color4.FromHexString(value);
+                                    this.setState({color: new Color3(color4.r, color4.g, color4.b), alpha: color4.a});
+                                } else {
+                                    this.setState({ color: Color3.FromHexString(value) });
+                                }
                             }}
                         />
                     </div>

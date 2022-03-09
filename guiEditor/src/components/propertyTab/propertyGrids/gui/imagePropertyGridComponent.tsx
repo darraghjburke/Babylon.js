@@ -212,7 +212,7 @@ export class ImagePropertyGridComponent extends React.Component<IImagePropertyGr
                     onValueChanged={() => {this.toggleAnimations(!animationSheet); this.forceUpdate();}}
                 />
                 {animationSheet && <>
-                <div className="ge-divider-short">
+                <div className="ge-divider double">
                 <FloatLineComponent
                     iconLabel={"Cell Id"}
                     icon={cellIDIcon}
