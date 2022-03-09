@@ -656,7 +656,6 @@ export class CommonControlPropertyGridComponent extends React.Component<ICommonC
                         arrows={true}
                         numbersOnly={true}
                         placeholder={"0"}
-                        step={0.1}
                     />
                 </div>
                 {showTextProperties && <>
