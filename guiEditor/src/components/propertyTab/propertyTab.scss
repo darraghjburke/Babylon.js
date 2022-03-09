@@ -1,7 +1,7 @@
 :root {
     --backgroundGrey: #aaaaaa;
     --spacingHeight: 30px;
-    --labelFamily: "acumin-pro-condensed-semibold";
+    --labelFamily: "acumin-pro-semi-condensed", sans-serif;
     --button: #333333;
     --buttonBackground: #ffffff;
     --buttonDisabledBackground: #c8c8c8;
@@ -23,7 +23,7 @@ hr.ge {
     color:black;
     background: #e2e2e2;
       * {
-        font-family: "acumin-pro-semicondensed";
+        font-family: "acumin-pro-semi-condensed", sans-serif;
         font-size: 12px;
       }
       #header {
@@ -170,7 +170,7 @@ hr.ge {
         height: var(--spacingHeight);;
         display: grid;
         grid-template-rows: 100%;
-        grid-template-columns: auto 1fr 5px 15px 1fr;
+        grid-template-columns: auto 1fr 75px 1fr;
         flex-grow: 1;
 
         .label {
@@ -189,7 +189,7 @@ hr.ge {
         }
 
         .slider {
-            grid-column: 5;
+            grid-column: 4;
             grid-row: 1;
             margin-right: 5px;
             display: flex;
@@ -292,6 +292,10 @@ hr.ge {
     .ge-grid {
         display: grid;
         margin-bottom: 5px;
+    }
+
+    .ge-divider.double .textInputLine {
+        grid-template-columns: auto auto 1fr 28px;
     }
 
 
@@ -1036,13 +1040,11 @@ hr.ge {
             padding-left: 15px;
             display: flex;
             align-items: center;   
-            margin-right: 5px;
 
             select {
                 width: 100%;
                 height: 25px;
                 border: transparent;
-                border-radius: 4px;
             }
         }                    
     }  

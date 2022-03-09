@@ -164,7 +164,7 @@
     left: 0;
 
     background: rgba(20, 20, 20, 0.95);    
-    font-family: "acumin-pro-condensed";
+    font-family: "acumin-pro-condensed", sans-serif;
     color: white;
     font-size: 24px;
 
@@ -190,7 +190,7 @@
     height: 100%;
     background: rgba(0.1, 0.1, 0.1, 0.6);
     display: grid;
-    font-family: "acumin-pro-condensed";
+    font-family: "acumin-pro-condensed", sans-serif;
     top:0;
 
     .dialog {
