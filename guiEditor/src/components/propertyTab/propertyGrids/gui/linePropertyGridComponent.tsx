@@ -58,8 +58,6 @@ export class LinePropertyGridComponent extends React.Component<ILinePropertyGrid
 
         return (
             <div className="pane">
-                <CommonControlPropertyGridComponent lockObject={this.props.lockObject} controls={lines} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
-                <hr />
                 <TextLineComponent label="LINE" value=" " color="grey"></TextLineComponent>
                 <div className="ge-divider">
                     <TextInputLineComponent
@@ -115,6 +113,8 @@ export class LinePropertyGridComponent extends React.Component<ILinePropertyGrid
                     value={dashString}
                     onChange={(newValue) => this.onDashChange(newValue)}
                 />
+                <hr />
+                <CommonControlPropertyGridComponent lockObject={this.props.lockObject} controls={lines} onPropertyChangedObservable={this.props.onPropertyChangedObservable} />
             </div>
         );
     }
